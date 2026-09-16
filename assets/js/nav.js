@@ -1,33 +1,46 @@
-/* nav.js – Burgermenü Toggle, Smooth-Scroll Active-State, Header-Scroll-Effekt */
+/* nav.js – Vollbild-Navigationspanel (wie im Original-Theme):
+   Ein fixer Hamburger-Button oben rechts öffnet ein Overlay-Menü.
+   Zusätzlich: aktiver Nav-Link je nach sichtbarem Abschnitt,
+   sowie Burger-Farbe hell/dunkel je nach Hintergrund der Section. */
 (function () {
-  var burger = document.querySelector('.burger');
-  var nav = document.querySelector('.main-nav');
+  var burger = document.getElementById('nav-toggle');
+  var nav = document.getElementById('site-nav');
+  var body = document.body;
 
   if (burger && nav) {
     burger.addEventListener('click', function () {
-      var isOpen = nav.classList.toggle('is-open');
+      var isOpen = !body.classList.contains('nav-open');
+      body.classList.toggle('nav-open', isOpen);
       burger.classList.toggle('is-active', isOpen);
       burger.setAttribute('aria-expanded', String(isOpen));
     });
 
-    // Menü schließen wenn ein Link geklickt wird (mobil)
     nav.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        nav.classList.remove('is-open');
+        body.classList.remove('nav-open');
         burger.classList.remove('is-active');
         burger.setAttribute('aria-expanded', 'false');
       });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        body.classList.remove('nav-open');
+        burger.classList.remove('is-active');
+        burger.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 
   // Active-Nav-Link je nach sichtbarem Abschnitt setzen
   var sections = document.querySelectorAll('section[id]');
-  var navLinks = document.querySelectorAll('.main-nav a[href^="#"]');
+  var navLinks = nav ? nav.querySelectorAll('a[href^="#"]') : [];
 
   if (sections.length && navLinks.length && 'IntersectionObserver' in window) {
     var map = {};
     navLinks.forEach(function (link) {
-      map[link.getAttribute('href').replace('#', '')] = link;
+      var href = link.getAttribute('href').replace('#', '');
+      map[href] = link;
     });
 
     var observer = new IntersectionObserver(function (entries) {
@@ -43,4 +56,18 @@
 
     sections.forEach(function (s) { observer.observe(s); });
   }
+
+  // Burger dunkel einfärben, sobald eine helle Section im oberen Bereich sichtbar ist
+  var lightSections = document.querySelectorAll('.bg-light');
+  if (burger && lightSections.length && 'IntersectionObserver' in window) {
+    var lightObserver = new IntersectionObserver(function (entries) {
+      var anyLightNearTop = false;
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) anyLightNearTop = true;
+      });
+      burger.classList.toggle('on-light', anyLightNearTop);
+    }, { rootMargin: '-10px 0px -85% 0px', threshold: 0 });
+    lightSections.forEach(function (s) { lightObserver.observe(s); });
+  }
 })();
+

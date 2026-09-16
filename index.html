@@ -18,25 +18,21 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="container">
-    <a href="#top" class="brand">
-      <img src="assets/img/maxi2q-1-300x300.jpg" alt="Maximilian Zuleger">
-      <span>Maximilian Zuleger</span>
-    </a>
-    <button type="button" class="burger" aria-label="Menü öffnen" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <nav>
-      <ul class="main-nav">
-        <li><a href="#resume">Resume</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="impressum.html">Imprint &amp; Privacy Policy</a></li>
-      </ul>
-    </nav>
+<button type="button" class="burger" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+  <span></span><span></span><span></span><span></span>
+</button>
+
+<nav id="site-nav" class="nav-panel">
+  <div class="nav-panel-inner">
+    <ul class="main-nav">
+      <li><a href="#top" class="brand-link">Maximilian Zuleger</a></li>
+      <li><a href="#resume">Resume</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="impressum.html">Imprint &amp; Privacy Policy</a></li>
+    </ul>
   </div>
-</header>
+</nav>
 
 <!-- ============ HERO ============ -->
 <section id="top" class="hero" style="background-image: url('assets/img/home-alternative.jpg');">

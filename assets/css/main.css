@@ -71,113 +71,131 @@ h1, h2, h3, h4, h5, h6 {
   color: #222;
 }
 
-/* ---------- Header / Navigation ---------- */
-.site-header {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  background: rgba(24,24,24,0.92);
-  backdrop-filter: blur(4px);
-}
-
-.site-header .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-
-.site-header .brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #fff;
-  font-weight: 600;
-}
-
-.site-header .brand img {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* Burger button */
+/* ---------- Navigation (Vollbild-Panel wie im Original) ---------- */
 .burger {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  z-index: 1100;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
+  gap: 6px;
   width: 32px;
-  height: 26px;
+  height: 22px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 1100;
+}
+
+@media (max-width: 1500px) {
+  .burger { top: 40px; right: 40px; }
+}
+@media (max-width: 767px) {
+  .burger { top: 30px; right: 30px; }
+}
+@media (max-width: 360px) {
+  .burger { top: 20px; right: 20px; }
 }
 
 .burger span {
   display: block;
-  height: 2px;
+  height: 3px;
   width: 100%;
   background: #fff;
   border-radius: 2px;
-  transition: transform .3s ease, opacity .3s ease;
+  transition: transform .3s ease, opacity .3s ease, width .25s ease;
 }
 
-.burger.is-active span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.burger.is-active span:nth-child(2) {
+.burger span:nth-child(4) { width: 65%; align-self: flex-start; }
+.burger:hover span:nth-child(4) { width: 100%; }
+
+.burger.is-active span:nth-child(1),
+.burger.is-active span:nth-child(4) {
+  transform: scale(0, 0);
   opacity: 0;
 }
+.burger.is-active span:nth-child(2) {
+  transform: translateY(9px) rotate(45deg);
+}
 .burger.is-active span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(6px) rotate(-45deg);
+}
+
+/* Über hellem Hintergrund (Resume/Portfolio-Section) dunkle Balken zeigen,
+   solange das Panel geschlossen ist */
+body:not(.nav-open) .burger.on-light span,
+body.is-legal:not(.nav-open) .burger span {
+  background: #222;
+}
+
+.nav-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .4s ease, visibility 0s linear .4s;
+  background: rgba(15,15,15,.97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.nav-open .nav-panel {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .4s ease;
+}
+
+.nav-panel-inner {
+  text-align: center;
 }
 
 .main-nav {
-  display: flex;
-  gap: 28px;
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
-.main-nav a {
+.main-nav li a {
   color: #fff;
-  font-size: .95rem;
+  font-size: 1.6rem;
+  font-weight: 300;
   letter-spacing: .03em;
-  text-transform: uppercase;
-  padding: 6px 0;
-  position: relative;
+  opacity: .8;
+  transition: opacity .2s ease, color .2s ease;
 }
 
-.main-nav a.active,
-.main-nav a:hover {
+.main-nav li a.brand-link {
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--color-primary);
+  opacity: 1;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.main-nav li a:hover,
+.main-nav li a.active {
+  opacity: 1;
   color: var(--color-primary);
 }
 
-@media (max-width: 860px) {
-  .main-nav {
-    position: fixed;
-    top: 0; right: 0;
-    height: 100vh;
-    width: min(78vw, 320px);
-    background: #111;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px;
-    gap: 26px;
-    transform: translateX(100%);
-    transition: transform .35s ease;
-    box-shadow: -10px 0 30px rgba(0,0,0,.4);
-  }
-  .main-nav.is-open {
-    transform: translateX(0);
-  }
+body.nav-open,
+body.nav-open .hero {
+  overflow: hidden;
+}
+
+/* Damit fixe Anker-Sprünge nicht unter dem Burger-Button verschwinden */
+section[id] {
+  scroll-margin-top: 20px;
 }
 
 /* ---------- Hero ---------- */
