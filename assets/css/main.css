@@ -609,7 +609,7 @@ section[id] {
   flex-wrap: wrap;
 }
 
-.single-chart { position: relative; width: 150px; height: 150px; }
+.single-chart { position: relative; width: 150px; text-align: center; }
 
 .single-chart svg { width: 150px; height: 150px; display: block; }
 
@@ -630,9 +630,11 @@ section[id] {
 
 .chart-content {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 150px;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -648,12 +650,13 @@ section[id] {
   font-weight: 600;
   color: #2f2f2f;
 }
-.chart-content .title {
+.chart-title {
+  display: block;
+  margin-top: 12px;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   color: #2f2f2f;
-  margin: 4px 0 0;
 }
 
 /* ---------- Skills / Portfolio: Masonry (CSS-Columns) ---------- */
