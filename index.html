@@ -73,7 +73,7 @@
 
     <!-- Skills / Progress -->
     <div class="resume-row" style="margin-top:50px;">
-      <div class="resume-row-image reveal reveal-fadeInLeft">
+      <div class="resume-row-image pos-left reveal reveal-fadeInLeft">
         <img src="assets/img/coffee.png" alt="">
       </div>
       <div class="resume-row-content">
@@ -187,7 +187,7 @@
           <div class="single-chart" data-percent="80" data-value="4/5" data-label="English"></div>
         </div>
       </div>
-      <div class="resume-row-image reveal reveal-fadeInRight">
+      <div class="resume-row-image pos-right reveal reveal-fadeInRight">
         <img src="assets/img/plant2.png" alt="">
       </div>
     </div>
@@ -312,7 +312,7 @@ var mapToggle = document.getElementById('map-toggle-input');
 var mapBg = document.querySelector('.contact-map-bg');
 if (mapToggle && mapBg) {
   mapToggle.addEventListener('change', function () {
-    mapBg.style.opacity = mapToggle.checked ? '.55' : '.18';
+    mapBg.classList.toggle('is-visible', mapToggle.checked);
   });
 }
 </script>
