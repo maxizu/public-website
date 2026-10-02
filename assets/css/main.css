@@ -89,6 +89,26 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   cursor: pointer;
   padding: 0;
+  box-sizing: content-box;
+}
+
+/* Immer sichtbarer Kontrast-Hintergrund hinter dem Burger,
+   unabhängig davon was gerade dahinter liegt (Bild, hell, dunkel) */
+.burger::before {
+  content: "";
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  background: rgba(20, 20, 20, .35);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+
+body:not(.nav-open) .burger::before {
+  opacity: 1;
 }
 
 @media (max-width: 1500px) {
@@ -125,12 +145,8 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(6px) rotate(-45deg);
 }
 
-/* Über hellem Hintergrund (Resume/Portfolio-Section) dunkle Balken zeigen,
-   solange das Panel geschlossen ist */
-body:not(.nav-open) .burger.on-light span,
-body.is-legal:not(.nav-open) .burger span {
-  background: #222;
-}
+/* Burger-Linien sind immer weiß; der halbtransparente dunkle Kreis-Hintergrund
+   (siehe .burger::before) sorgt für Kontrast auf jedem Untergrund */
 
 .nav-panel {
   position: fixed;
@@ -153,6 +169,15 @@ body.nav-open .nav-panel {
 
 .nav-panel-inner {
   text-align: center;
+}
+
+.nav-panel-avatar {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,.25);
+  margin-bottom: 28px;
 }
 
 .main-nav {
@@ -355,7 +380,7 @@ section[id] {
   border: 2px solid rgba(255,255,255,.5);
 }
 
-.text-lg { font-size: 1.4rem; line-height: 1.4; color: #222; }
+.text-lg { font-size: 1.35rem; line-height: 1.5; color: #222; font-weight: 700; margin-bottom: 1.2rem; }
 
 /* Resume rows: Inhalt + kleine dekorative Eck-Grafik (wie im Original,
    absolut positioniert statt als eigene Flex-Spalte) */
@@ -367,14 +392,14 @@ section[id] {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 340px;
+  width: 240px;
   max-width: none;
   opacity: .95;
   pointer-events: none;
   z-index: 0;
 }
-.resume-row-image.pos-left  { left: -380px; }
-.resume-row-image.pos-right { right: -380px; }
+.resume-row-image.pos-left  { left: -250px; }
+.resume-row-image.pos-right { right: -250px; }
 
 .resume-row-content { position: relative; z-index: 1; }
 
