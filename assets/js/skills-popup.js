@@ -1,11 +1,13 @@
-/* skills-popup.js – Rendert das Skills/Portfolio-Grid aus skills-site.json
-   und öffnet beim Klick ein Popup mit den Detailinhalten (Zoom-Animation). */
+/* skills-popup.js – Rendert das Skills/Portfolio-Masonry-Grid aus skills-site.json,
+   filterbar nach Kategorie (All/IT/Social/Sport) und öffnet beim Klick ein Popup
+   mit den Detailinhalten (Zoom-Animation). */
 (function () {
   var grid = document.getElementById('skills-grid');
   if (!grid) return;
 
   var overlay = document.getElementById('skills-popup-overlay');
   var popupBox = overlay ? overlay.querySelector('.popup-box') : null;
+  var filterTabs = document.querySelectorAll('.filter-tab');
 
   fetch('assets/data/skills-site.json')
     .then(function (r) { return r.json(); })
@@ -15,12 +17,14 @@
         .sort(function (a, b) { return b.id - a.id; });
 
       entries.forEach(function (item, idx) {
-        if (!item.thumbnail) return;
+        var imgSrc = item.image || item.thumbnail;
+        if (!imgSrc) return;
         var tile = document.createElement('div');
-        tile.className = 'skill-tile reveal reveal-fadeInUp';
+        tile.className = 'masonry-item skill-item reveal reveal-fadeInUp';
+        tile.setAttribute('data-filter', item.filters || '');
         tile.style.animationDelay = (idx % 6) * 0.06 + 's';
         tile.innerHTML =
-          '<img src="' + item.thumbnail + '" alt="' + escapeHtml(item.title) + '" loading="lazy">' +
+          '<img src="' + imgSrc + '" alt="' + escapeHtml(item.title) + '">' +
           '<span class="tile-caption">' + escapeHtml(item.title) + '</span>';
         tile.addEventListener('click', function () { openPopup(item); });
         grid.appendChild(tile);
@@ -42,6 +46,19 @@
       }
     })
     .catch(function (err) { console.error('Skills konnten nicht geladen werden', err); });
+
+  // Filter-Tabs
+  filterTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      filterTabs.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      var filter = tab.getAttribute('data-filter');
+      grid.querySelectorAll('.skill-item').forEach(function (item) {
+        var show = filter === 'all' || item.getAttribute('data-filter') === filter;
+        item.style.display = show ? '' : 'none';
+      });
+    });
+  });
 
   function escapeHtml(str) {
     var div = document.createElement('div');
