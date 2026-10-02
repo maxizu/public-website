@@ -23,18 +23,22 @@
 
   items.forEach(function (el) { observer.observe(el); });
 
-  /* Progress-Bars: Breite erst beim Sichtbarwerden animieren */
-  var bars = document.querySelectorAll('.progress-bar[data-percent]');
-  if (bars.length) {
-    var barObserver = new IntersectionObserver(function (entries, obs) {
+  /* Skill-Slider: Fill-Breite und Badge-Position erst beim Sichtbarwerden animieren */
+  var sliders = document.querySelectorAll('.skill-slider[data-percent]');
+  if (sliders.length) {
+    var sliderObserver = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           var el = entry.target;
-          el.style.width = el.getAttribute('data-percent') + '%';
+          var percent = el.getAttribute('data-percent') + '%';
+          var fill = el.querySelector('.skill-slider-fill');
+          var badge = el.querySelector('.skill-slider-badge');
+          if (fill) fill.style.width = percent;
+          if (badge) badge.style.left = percent;
           obs.unobserve(el);
         }
       });
     }, { threshold: 0.3 });
-    bars.forEach(function (el) { barObserver.observe(el); });
+    sliders.forEach(function (el) { sliderObserver.observe(el); });
   }
 })();
