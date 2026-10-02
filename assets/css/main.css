@@ -461,10 +461,10 @@ section[id] {
   font-size: 1.5rem;
 }
 
-/* ---------- Timeline (Datum links, Punkt+Linie mittig, Inhalt rechts) ---------- */
+/* ---------- Timeline (Zick-Zack: abwechselnd links/rechts, wie im Original) ---------- */
 .timeline {
   position: relative;
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
 }
 
@@ -473,29 +473,49 @@ section[id] {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 160px;
+  left: 50%;
   width: 2px;
+  margin-left: -1px;
   background: #e2e2e2;
 }
 
 .timeline-event {
   position: relative;
   display: grid;
-  grid-template-columns: 140px 40px 1fr;
+  grid-template-columns: 1fr 40px 1fr;
   align-items: start;
   gap: 0 20px;
-  padding-bottom: 46px;
+  padding-bottom: 50px;
+}
+
+/* Ungerade Einträge (1., 3., 5. ...): Datum links, Inhalt rechts */
+.timeline-event:nth-child(odd) .timeline-event-date {
+  grid-column: 1;
+  text-align: right;
+}
+.timeline-event:nth-child(odd) .timeline-event-content {
+  grid-column: 3;
   text-align: left;
+}
+
+/* Gerade Einträge (2., 4., 6. ...): Inhalt links, Datum rechts */
+.timeline-event:nth-child(even) .timeline-event-date {
+  grid-column: 3;
+  text-align: left;
+}
+.timeline-event:nth-child(even) .timeline-event-content {
+  grid-column: 1;
+  text-align: right;
 }
 
 .timeline-event-date {
   color: var(--color-text-muted);
   font-size: .85rem;
-  text-align: right;
   padding-top: 4px;
 }
 
 .timeline-event-point {
+  grid-column: 2;
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -516,11 +536,36 @@ section[id] {
   margin-bottom: 8px;
 }
 
-@media (max-width: 600px) {
-  .timeline::before { left: 60px; }
-  .timeline-event { grid-template-columns: 50px 30px 1fr; }
-  .timeline-event-date { font-size: .7rem; text-align: left; }
+.timeline-event:nth-child(odd) .timeline-event-content img { margin-left: 0; }
+.timeline-event:nth-child(even) .timeline-event-content img { margin-right: 0; margin-left: auto; }
+
+@media (max-width: 700px) {
+  .timeline::before { left: 20px; margin-left: 0; }
+  .timeline-event,
+  .timeline-event:nth-child(even) {
+    grid-template-columns: 30px 1fr;
+    grid-template-rows: auto auto;
+  }
+  .timeline-event:nth-child(odd) .timeline-event-date,
+  .timeline-event:nth-child(even) .timeline-event-date {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: left;
+  }
+  .timeline-event:nth-child(odd) .timeline-event-point,
+  .timeline-event:nth-child(even) .timeline-event-point {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .timeline-event:nth-child(odd) .timeline-event-content,
+  .timeline-event:nth-child(even) .timeline-event-content {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: left;
+  }
+  .timeline-event:nth-child(even) .timeline-event-content img { margin-left: 0; margin-right: 0; }
 }
+
 
 /* Circle charts (languages) */
 .chart-grid {
