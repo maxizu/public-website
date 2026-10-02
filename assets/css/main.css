@@ -404,9 +404,18 @@ section[id] {
 .resume-row-image.img-coffee { width: 320px; left: -370px; }
 .resume-row-image.img-docs   { width: 420px; left: -470px; }
 .resume-row-image.img-cup    { width: 300px; right: -350px; }
-.resume-row-image.img-plant  { width: 360px; right: -410px; }
 
 .resume-row-content { position: relative; z-index: 1; }
+
+/* Languages: 1:1 Nachbau der Original-Masse (max-z.de), gemessen per
+   Headless-Browser: Inhaltsspalte 390px breit, Pflanze 429x469px,
+   mit 449px Abstand von der Spalten-Linken-Kante positioniert. */
+.languages-content { max-width: 390px; }
+.resume-row-image.img-plant {
+  width: 429px;
+  left: 449px;
+  right: auto;
+}
 
 @media (max-width: 1300px) {
   .resume-row-image { display: none; }
@@ -603,37 +612,60 @@ section[id] {
 }
 
 
-/* Circle charts (languages) */
+/* Circle charts (languages) - 1:1 Nachbau Original: 150x150 Kreis,
+   Bruch-Wert + Sprachname MITTIG IM Kreis (nicht als externe Caption). */
 .chart-grid {
   display: flex;
-  gap: 40px;
+  gap: 45px;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
 
-.single-chart { text-align: center; }
+.single-chart { position: relative; width: 150px; height: 150px; }
 
-.single-chart svg { width: 130px; height: 130px; }
+.single-chart svg { width: 150px; height: 150px; display: block; }
 
 .chart-circle-bg {
   fill: none;
   stroke: #eee;
-  stroke-width: 8;
+  stroke-width: 4;
 }
 .chart-circle-value {
   fill: none;
   stroke: var(--color-primary);
-  stroke-width: 8;
+  stroke-width: 4;
   stroke-linecap: round;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
   transition: stroke-dashoffset 1.4s ease;
 }
 
-.chart-content-text {
-  font-size: 1.4rem;
-  font-weight: 700;
-  fill: #222;
+.chart-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+.chart-content .value {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(47,47,47,.5);
+}
+.chart-content .value b {
+  font-size: 26px;
+  font-weight: 600;
+  color: #2f2f2f;
+}
+.chart-content .title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #2f2f2f;
+  margin: 4px 0 0;
 }
 
 /* ---------- Skills / Portfolio: Masonry (CSS-Columns) ---------- */

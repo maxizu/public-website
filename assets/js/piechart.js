@@ -5,7 +5,7 @@
   var charts = document.querySelectorAll('.single-chart[data-percent]');
   if (!charts.length) return;
 
-  var RADIUS = 54;
+  var RADIUS = 73;
   var CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
   charts.forEach(function (el) {
@@ -15,41 +15,52 @@
 
     var svgNS = 'http://www.w3.org/2000/svg';
     var svg = document.createElementNS(svgNS, 'svg');
-    svg.setAttribute('viewBox', '0 0 130 130');
+    svg.setAttribute('viewBox', '0 0 150 150');
 
     var bg = document.createElementNS(svgNS, 'circle');
-    bg.setAttribute('cx', 65);
-    bg.setAttribute('cy', 65);
+    bg.setAttribute('cx', 75);
+    bg.setAttribute('cy', 75);
     bg.setAttribute('r', RADIUS);
     bg.setAttribute('class', 'chart-circle-bg');
 
     var fg = document.createElementNS(svgNS, 'circle');
-    fg.setAttribute('cx', 65);
-    fg.setAttribute('cy', 65);
+    fg.setAttribute('cx', 75);
+    fg.setAttribute('cy', 75);
     fg.setAttribute('r', RADIUS);
     fg.setAttribute('class', 'chart-circle-value');
     fg.setAttribute('stroke-dasharray', CIRCUMFERENCE);
     fg.setAttribute('stroke-dashoffset', CIRCUMFERENCE);
 
-    var text = document.createElementNS(svgNS, 'text');
-    text.setAttribute('x', '50%');
-    text.setAttribute('y', '50%');
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('dominant-baseline', 'middle');
-    text.setAttribute('class', 'chart-content-text');
-    text.textContent = value;
-
     svg.appendChild(bg);
     svg.appendChild(fg);
-    svg.appendChild(text);
     el.appendChild(svg);
 
-    if (label) {
-      var h6 = document.createElement('h6');
-      h6.className = 'title';
-      h6.textContent = label;
-      el.appendChild(h6);
+    // Text als HTML-Overlay (wie im Original: Wert gross + "/5" klein,
+    // darunter der Sprachname in Grossbuchstaben), zentriert im Kreis.
+    var content = document.createElement('div');
+    content.className = 'chart-content';
+
+    var valueParts = value.split('/');
+    var valueEl = document.createElement('span');
+    valueEl.className = 'value';
+    if (valueParts.length === 2) {
+      var b = document.createElement('b');
+      b.textContent = valueParts[0];
+      valueEl.appendChild(b);
+      valueEl.appendChild(document.createTextNode('/' + valueParts[1]));
+    } else {
+      valueEl.textContent = value;
     }
+    content.appendChild(valueEl);
+
+    if (label) {
+      var titleEl = document.createElement('span');
+      titleEl.className = 'title';
+      titleEl.textContent = label;
+      content.appendChild(titleEl);
+    }
+
+    el.appendChild(content);
 
     el._animate = function () {
       var offset = CIRCUMFERENCE - (percent / 100) * CIRCUMFERENCE;
