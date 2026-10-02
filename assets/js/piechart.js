@@ -52,15 +52,14 @@
       valueEl.textContent = value;
     }
     content.appendChild(valueEl);
+    el.appendChild(content);
 
     if (label) {
       var titleEl = document.createElement('span');
-      titleEl.className = 'title';
+      titleEl.className = 'chart-title';
       titleEl.textContent = label;
-      content.appendChild(titleEl);
+      el.appendChild(titleEl);
     }
-
-    el.appendChild(content);
 
     el._animate = function () {
       var offset = CIRCUMFERENCE - (percent / 100) * CIRCUMFERENCE;
