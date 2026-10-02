@@ -11,7 +11,7 @@
   --color-light-bg: #fff;
   --color-text: #444;
   --color-text-muted: #888;
-  --font-base: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-base: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --max-width: 1140px;
 }
 
@@ -289,14 +289,14 @@ section[id] {
 .profile-card {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 30px;
   flex-wrap: wrap;
   margin-bottom: 40px;
 }
 
 .profile-photo {
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 4px;
   box-shadow: 0 10px 30px rgba(0,0,0,.12);
@@ -367,17 +367,18 @@ section[id] {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 220px;
+  width: 340px;
+  max-width: none;
   opacity: .95;
   pointer-events: none;
   z-index: 0;
 }
-.resume-row-image.pos-left  { left: -260px; }
-.resume-row-image.pos-right { right: -260px; }
+.resume-row-image.pos-left  { left: -380px; }
+.resume-row-image.pos-right { right: -380px; }
 
 .resume-row-content { position: relative; z-index: 1; }
 
-@media (max-width: 1100px) {
+@media (max-width: 1300px) {
   .resume-row-image { display: none; }
 }
 
@@ -537,7 +538,7 @@ section[id] {
 }
 
 .timeline-event-content img {
-  max-width: 80px;
+  max-width: 90px;
   margin-bottom: 8px;
 }
 
@@ -615,6 +616,10 @@ section[id] {
 @media (max-width: 1100px) { .masonry-grid { column-count: 3; } }
 @media (max-width: 760px)  { .masonry-grid { column-count: 2; } }
 @media (max-width: 460px)  { .masonry-grid { column-count: 1; } }
+
+/* Skills-Grid nutzt im Original nur 2 (größere) Spalten statt 4 */
+#skills-grid.masonry-grid { column-count: 2; }
+@media (max-width: 600px) { #skills-grid.masonry-grid { column-count: 1; } }
 
 .masonry-item {
   position: relative;
