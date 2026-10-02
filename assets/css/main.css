@@ -41,7 +41,7 @@ a:hover { color: var(--color-primary-dark); }
 }
 
 .container-slim {
-  max-width: 900px;
+  max-width: 680px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -353,23 +353,26 @@ section[id] {
 
 .text-lg { font-size: 1.4rem; line-height: 1.4; color: #222; }
 
-/* Resume two-column rows (image + content) */
+/* Resume rows: Inhalt + kleine dekorative Eck-Grafik (wie im Original,
+   absolut positioniert statt als eigene Flex-Spalte) */
 .resume-row {
-  display: flex;
-  gap: 50px;
-  align-items: center;
-  flex-wrap: wrap;
+  position: relative;
 }
 
 .resume-row-image {
-  flex: 0 0 160px;
-  text-align: center;
+  position: absolute;
+  top: -10px;
+  width: 70px;
+  opacity: .95;
+  pointer-events: none;
+  z-index: 0;
 }
-.resume-row-image img { max-width: 140px; }
+.resume-row-image.pos-left  { left: -90px; }
+.resume-row-image.pos-right { right: -90px; }
 
-.resume-row-content { flex: 1 1 400px; }
+.resume-row-content { position: relative; z-index: 1; }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .resume-row-image { display: none; }
 }
 
@@ -688,8 +691,14 @@ section[id] {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: .18;
+  opacity: .1;
   filter: grayscale(1);
+  transition: opacity .6s ease, filter .6s ease;
+}
+
+.contact-map-bg.is-visible {
+  opacity: .9;
+  filter: grayscale(0);
 }
 
 .contact-overlay {
