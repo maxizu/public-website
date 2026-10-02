@@ -1,7 +1,6 @@
 /* nav.js – Vollbild-Navigationspanel (wie im Original-Theme):
    Ein fixer Hamburger-Button oben rechts öffnet ein Overlay-Menü.
-   Zusätzlich: aktiver Nav-Link je nach sichtbarem Abschnitt,
-   sowie Burger-Farbe hell/dunkel je nach Hintergrund der Section. */
+   Zusätzlich: aktiver Nav-Link je nach sichtbarem Abschnitt. */
 (function () {
   var burger = document.getElementById('nav-toggle');
   var nav = document.getElementById('site-nav');
@@ -55,19 +54,6 @@
     }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
 
     sections.forEach(function (s) { observer.observe(s); });
-  }
-
-  // Burger dunkel einfärben, sobald eine helle Section im oberen Bereich sichtbar ist
-  var lightSections = document.querySelectorAll('.bg-light');
-  if (burger && lightSections.length && 'IntersectionObserver' in window) {
-    var lightObserver = new IntersectionObserver(function (entries) {
-      var anyLightNearTop = false;
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) anyLightNearTop = true;
-      });
-      burger.classList.toggle('on-light', anyLightNearTop);
-    }, { rootMargin: '-10px 0px -85% 0px', threshold: 0 });
-    lightSections.forEach(function (s) { lightObserver.observe(s); });
   }
 })();
 
