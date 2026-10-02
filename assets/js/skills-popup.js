@@ -69,7 +69,7 @@
   function openPopup(item) {
     if (!overlay || !popupBox) return;
     var imgHtml = item.image ? '<img src="' + item.image + '" alt="' + escapeHtml(item.title) + '">' : '';
-    var linkHtml = item.custom_url
+    var linkHtml = (item.custom_url && item.content.indexOf(item.custom_url) === -1)
       ? '<p><a href="' + item.custom_url + '" target="_blank" rel="noopener">' + item.custom_url + '</a></p>'
       : '';
     popupBox.innerHTML =
