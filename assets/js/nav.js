@@ -55,5 +55,32 @@
 
     sections.forEach(function (s) { observer.observe(s); });
   }
+
+  // Burger-Kontrast je nach Hintergrund des Abschnitts, der sich gerade
+  // hinter dem Button befindet (dunkle Linien auf hellem Grund, helle
+  // Linien auf dunklem Grund) - ohne Backdrop-Kreis, wie im Original.
+  function updateBurgerContrast() {
+    if (body.classList.contains('nav-open')) return;
+    var x = Math.round(window.innerWidth / 2);
+    var y = 55;
+    var el = document.elementFromPoint(x, y);
+    var isDark = false;
+    while (el && el !== document.body) {
+      if (el.classList && (el.classList.contains('bg-dark') || el.classList.contains('hero'))) {
+        isDark = true;
+        break;
+      }
+      if (el.tagName === 'FOOTER') {
+        isDark = true;
+        break;
+      }
+      el = el.parentElement;
+    }
+    body.classList.toggle('on-light', !isDark);
+  }
+
+  updateBurgerContrast();
+  window.addEventListener('scroll', updateBurgerContrast, { passive: true });
+  window.addEventListener('resize', updateBurgerContrast);
 })();
 
