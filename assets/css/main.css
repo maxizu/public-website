@@ -392,14 +392,19 @@ section[id] {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 240px;
   max-width: none;
   opacity: .95;
   pointer-events: none;
   z-index: 0;
 }
-.resume-row-image.pos-left  { left: -250px; }
-.resume-row-image.pos-right { right: -250px; }
+
+/* Jedes dekorative Bild bekommt seine Originalgroesse + einen Abstand
+   (gap) zur Inhaltsspalte, sodass es garantiert nicht ueberlappt,
+   darf dafuer aber (wie im Original) am Rand/Viewport ueberbluten. */
+.resume-row-image.img-coffee { width: 320px; left: -370px; }
+.resume-row-image.img-docs   { width: 420px; left: -470px; }
+.resume-row-image.img-cup    { width: 300px; right: -350px; }
+.resume-row-image.img-plant  { width: 360px; right: -410px; }
 
 .resume-row-content { position: relative; z-index: 1; }
 
