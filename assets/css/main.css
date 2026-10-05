@@ -368,7 +368,7 @@ section[id] {
   border: 2px solid rgba(255,255,255,.5);
 }
 
-.text-lg { font-size: 1.35rem; line-height: 1.5; color: #222; font-weight: 700; margin-bottom: 1.2rem; }
+.text-lg { font-size: 1.15rem; line-height: 1.6; color: var(--color-text); font-weight: 400; margin-bottom: 1rem; }
 
 /* Resume rows: Inhalt + kleine dekorative Eck-Grafik (wie im Original,
    absolut positioniert statt als eigene Flex-Spalte) */
