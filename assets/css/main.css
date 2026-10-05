@@ -35,6 +35,21 @@ img { max-width: 100%; height: auto; }
 a { color: var(--color-primary); text-decoration: none; }
 a:hover { color: var(--color-primary-dark); }
 
+/* Nur fuer Screenreader/Crawler sichtbar: traegt den vollstaendigen Text
+   von Typing-Animationen (die ihren Inhalt per JS erst nach und nach
+   aufbauen), damit SEO/Barrierefreiheit unabhaengig von JS funktionieren. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .container {
   max-width: var(--max-width);
   margin: 0 auto;

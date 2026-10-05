@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://max-z.de/sitemap.xml
