@@ -522,6 +522,16 @@ section[id] {
   padding-bottom: 50px;
 }
 
+/* Alle drei Kinder explizit in Zeile 1 fixieren: ohne das verteilt der
+   Grid-Auto-Placement-Algorithmus sie bei geraden Eintraegen (Spalten in
+   absteigender Reihenfolge: Datum=3, Punkt=2, Inhalt=1) faelschlich auf
+   3 einzelne Zeilen, da der Platzierungs-Cursor nur vorwaerts wandert. */
+.timeline-event-date,
+.timeline-event-point,
+.timeline-event-content {
+  grid-row: 1;
+}
+
 /* Ungerade Einträge (1., 3., 5. ...): Datum links, Inhalt rechts */
 .timeline-event:nth-child(odd) .timeline-event-date {
   grid-column: 1;
