@@ -172,6 +172,8 @@ body.nav-open .nav-panel {
 
 .nav-panel-inner {
   text-align: center;
+  padding: 0 24px;
+  max-width: 500px;
 }
 
 .nav-panel-avatar {
@@ -210,6 +212,10 @@ body.nav-open .nav-panel {
   opacity: 1;
   margin-bottom: 6px;
   display: inline-block;
+}
+
+@media (max-width: 420px) {
+  .main-nav li a { font-size: 1.3rem; }
 }
 
 .main-nav li a:hover,
