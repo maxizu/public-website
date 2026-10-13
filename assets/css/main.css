@@ -626,7 +626,7 @@ section[id] {
   .timeline::before { left: 20px; margin-left: 0; }
   .timeline-event,
   .timeline-event:nth-child(even) {
-    grid-template-columns: 30px 1fr;
+    grid-template-columns: 40px 1fr;
     grid-template-rows: auto auto;
   }
   .timeline-event:nth-child(odd) .timeline-event-date,
