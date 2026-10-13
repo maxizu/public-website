@@ -953,7 +953,7 @@ section[id] {
   will-change: transform, opacity;
 }
 .reveal.in-view {
-  animation-duration: .9s;
+  animation-duration: 1s;
   animation-fill-mode: both;
 }
 
