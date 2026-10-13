@@ -639,7 +639,7 @@ section[id] {
   .timeline-event:nth-child(even) .timeline-event-point {
     grid-column: 1;
     grid-row: 1 / span 2;
-    margin-left: 4px;
+    margin-left: 2px;
   }
   .timeline-event:nth-child(odd) .timeline-event-content,
   .timeline-event:nth-child(even) .timeline-event-content {
