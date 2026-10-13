@@ -1,81 +1,81 @@
 # max-z.de
 
-Persönliche One-Page-Website von Maximilian Zuleger (Software Engineer) – Lebenslauf, Skills, Portfolio und Kontaktmöglichkeiten.
+Personal one-page website of Maximilian Zuleger (Software Engineer) – resume, skills, portfolio and contact options.
 
-Die Seite ist eine reine **statische HTML/CSS/Vanilla-JS-Website** ohne Build-Schritt, ohne Framework und ohne externe Abhängigkeiten zur Laufzeit (bis auf Google Fonts/Font Awesome, die lokal eingebunden sind).
+The site is a pure **static HTML/CSS/vanilla JS website** with no build step, no framework, and no runtime dependencies (aside from Google Fonts/Font Awesome, which are hosted locally).
 
-## Struktur
+## Structure
 
 ```
-index.html              Haupt-Seite (One-Pager: Hero, Resume, Portfolio/Skills, Kontakt)
-impressum.html          Impressum & Datenschutzerklärung
+index.html              Main page (one-pager: hero, resume, portfolio/skills, contact)
+impressum.html          Imprint & privacy policy
 robots.txt
 sitemap.xml
 
 assets/
   css/
-    main.css            Gesamtes Stylesheet (Layout, Komponenten, Responsive)
-    animations.css       Keyframes für Scroll-Reveal-Animationen
+    main.css            Full stylesheet (layout, components, responsive)
+    animations.css       Keyframes for scroll-reveal animations
   js/
-    nav.js               Burger-Menü (Fullscreen-Overlay) + aktiver Nav-Link beim Scrollen
-    reveal.js            Scroll-Reveal-Animationen (IntersectionObserver) + Skill-Slider
-    typing.js            Tipp-Effekt für Überschriften
-    piechart.js          SVG-Kreisdiagramme (Sprachkenntnisse)
-    skills-popup.js       Rendert das Skills-Grid + Popup-Detailansicht aus skills-site.json
+    nav.js               Burger menu (fullscreen overlay) + active nav link while scrolling
+    reveal.js            Scroll-reveal animations (IntersectionObserver) + skill sliders
+    typing.js            Typing effect for headings
+    piechart.js          SVG circle charts (language skills)
+    skills-popup.js       Renders the skills grid + popup detail view from skills-site.json
   data/
-    skills.json          Rohdaten Skills/Portfolio-Kacheln
-    skills-site.json     Aufbereitete Daten für skills-popup.js
-  img/                   Alle Bilder (Fotos, Logos, Instagram-Grid, Dekoration)
+    skills.json          Raw skills/portfolio tile data
+    skills-site.json     Processed data for skills-popup.js
+  img/                   All images (photos, logos, Instagram grid, decoration)
   fonts/
-    jetbrains-mono/       Self-hosted Variable Font (Haupt-Schriftart der Seite)
-    fontawesome/          Font Awesome 5.15.4 (Icons)
+    jetbrains-mono/       Self-hosted variable font (site's main typeface)
+    fontawesome/          Font Awesome 5.15.4 (icons)
 ```
 
-## Lokal starten
+## Running locally
 
-Da es sich um eine rein statische Seite handelt, reicht ein einfacher HTTP-Server im Projektverzeichnis, z. B.:
+Since this is a purely static site, any simple HTTP server in the project directory will do, e.g.:
 
 ```bash
 python3 -m http.server 8811
 ```
 
-Danach ist die Seite unter `http://localhost:8811/` erreichbar.
+The site is then available at `http://localhost:8811/`.
 
-## Inhalte pflegen
+## Maintaining content
 
-### Neuen Job / neue Station hinzufügen (Abschnitt "Jobs & Education")
+### Adding a new job / entry ("Jobs & Education" section)
 
-In `index.html` im Bereich `<div class="timeline">` einen neuen Block nach diesem Muster einfügen:
+In `index.html`, inside the `<div class="timeline">` block, insert a new entry following this pattern:
 
 ```html
 <div class="timeline-event">
-  <div class="timeline-event-date">MM.JJJJ - MM.JJJJ</div>
+  <div class="timeline-event-date">MM.YYYY - MM.YYYY</div>
   <div class="timeline-event-point"></div>
   <div class="timeline-event-content">
-    <img src="assets/img/dein-logo.png" alt="">
-    <h5 class="timeline-event-title">Jobtitel</h5>
-    <span class="timeline-event-caption text-muted">Firmenname</span>
+    <img src="assets/img/your-logo.png" alt="">
+    <h5 class="timeline-event-title">Job Title</h5>
+    <span class="timeline-event-caption text-muted">Company Name</span>
   </div>
 </div>
 ```
 
-Die Reihenfolge der Blöcke bestimmt die Position in der Timeline (oben = neuestes). Das abwechselnde Links/Rechts-Layout (Zickzack) ergibt sich automatisch aus der Position im Dokument, es muss nichts manuell nummeriert werden. Ein neues Firmenlogo einfach als Bilddatei unter `assets/img/` ablegen und referenzieren.
+The order of the blocks determines the position in the timeline (top = most recent). The alternating left/right zigzag layout happens automatically based on the position in the document — no manual numbering needed. Just drop a new company logo image under `assets/img/` and reference it.
 
-### Skills / Portfolio-Kacheln
+### Skills / portfolio tiles
 
-Werden aus `assets/data/skills-site.json` geladen und von `skills-popup.js` gerendert (inkl. Filter-Tabs und Popup bei Klick). Neue Einträge dort als zusätzliches Objekt in der JSON-Datei ergänzen.
+Loaded from `assets/data/skills-site.json` and rendered by `skills-popup.js` (including filter tabs and the click-to-open popup). Add new entries as additional objects in that JSON file.
 
-### Sprachkenntnisse (Kreisdiagramme)
+### Language skills (circle charts)
 
-In `index.html` im Abschnitt "Languages":
+In `index.html`, in the "Languages" section:
 
 ```html
 <div class="single-chart" data-percent="100" data-value="5/5" data-label="German"></div>
 ```
 
-`data-percent` steuert den gefüllten Anteil des Kreises, `data-value` und `data-label` den angezeigten Text.
+`data-percent` controls how much of the circle is filled, `data-value` and `data-label` control the displayed text.
 
-### Skill-Slider ("A passion for")
+### Skill sliders ("A passion for")
 
 ```html
 <div class="skill-slider" data-percent="85">
@@ -84,10 +84,10 @@ In `index.html` im Abschnitt "Languages":
 </div>
 ```
 
-## Technischer Hinweis zu Animationen
+## Technical note on animations
 
-Scroll-Reveal-Animationen (`reveal.js` + `animations.css`) nutzen die CSS-Klassen `reveal reveal-fadeInLeft`, `reveal-fadeInRight`, `reveal-fadeInUp` bzw. `reveal-bounceInLeft`. Ein Element wird animiert, sobald es per `IntersectionObserver` erstmals ins Viewport kommt.
+Scroll-reveal animations (`reveal.js` + `animations.css`) use the CSS classes `reveal reveal-fadeInLeft`, `reveal-fadeInRight`, `reveal-fadeInUp`, and `reveal-bounceInLeft`. An element animates in as soon as it first enters the viewport, detected via `IntersectionObserver`.
 
-## Lizenz / Inhalte
+## License / content
 
-Alle Inhalte (Texte, Fotos) sind Eigentum von Maximilian Zuleger. Keine Weiterverwendung ohne Erlaubnis.
+All content (texts, photos) is the property of Maximilian Zuleger. No reuse without permission.
